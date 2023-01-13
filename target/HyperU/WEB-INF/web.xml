@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2021 University of Padua, Italy
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    Author: Stefano Alberton
+            Marco Alecci
+            Francisca Chidubem Ezeobi
+            Luca Martinelli
+            Elia Ziroldo
+    Version: 1.0
+    Since: 1.0
+-->
+
+<web-app version="4.0" id="hyperu-server" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+    <display-name>HyperU</display-name>
+    <description>A web app in which users can share project ideas and create teams based on required skills to realize
+        the project.
+    </description>
+
+    <welcome-file-list>
+        <welcome-file>/jsp/index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <!-- Filters -->
+
+    <filter>
+        <filter-name>CorsFilter</filter-name>
+        <filter-class>it.unipd.dei.hyperu.filter.CorsFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CorsFilter</filter-name>
+        <url-pattern>/api/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>it.unipd.dei.hyperu.filter.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/api/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>it.unipd.dei.hyperu.filter.AdminFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/api/admin/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>ModeratorFilter</filter-name>
+        <filter-class>it.unipd.dei.hyperu.filter.ModeratorFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ModeratorFilter</filter-name>
+        <url-pattern>/api/moderator/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>CommentFilter</filter-name>
+        <filter-class>it.unipd.dei.hyperu.filter.CommentFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CommentFilter</filter-name>
+        <url-pattern>/api/comment/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>IdeaFilter</filter-name>
+        <filter-class>it.unipd.dei.hyperu.filter.IdeaFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>IdeaFilter</filter-name>
+        <url-pattern>/api/idea/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>TeamMemberFilter</filter-name>
+        <filter-class>it.unipd.dei.hyperu.filter.TeamMemberFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>TeamMemberFilter</filter-name>
+        <url-pattern>/api/team/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>TeamCreatorFilter</filter-name>
+        <filter-class>it.unipd.dei.hyperu.filter.TeamCreatorFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>TeamCreatorFilter</filter-name>
+        <url-pattern>/api/team/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>TeamOpenedFilter</filter-name>
+        <filter-class>it.unipd.dei.hyperu.filter.TeamOpenedFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>TeamOpenedFilter</filter-name>
+        <url-pattern>/api/team/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>MessageFilter</filter-name>
+        <filter-class>it.unipd.dei.hyperu.filter.MessageFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>MessageFilter</filter-name>
+        <url-pattern>/api/message/*</url-pattern>
+        <url-pattern>/api/file/message/*</url-pattern>
+    </filter-mapping>
+
+    <!-- Servlets -->
+
+    <servlet>
+        <servlet-name>RestApiServlet</servlet-name>
+        <servlet-class>it.unipd.dei.hyperu.servlet.RestApiServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RestApiServlet</servlet-name>
+        <url-pattern>/api/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ImageServlet</servlet-name>
+        <servlet-class>it.unipd.dei.hyperu.servlet.ImageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ImageServlet</servlet-name>
+        <url-pattern>/api/image/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FileServlet</servlet-name>
+        <servlet-class>it.unipd.dei.hyperu.servlet.FileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FileServlet</servlet-name>
+        <url-pattern>/api/file/*</url-pattern>
+    </servlet-mapping>
+
+    <resource-ref>
+        <description>Connection pool to the database</description>
+        <res-ref-name>jdbc/hyperu-db</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+
+    <!-- FRONTEND -->
+    <servlet>
+        <servlet-name>FeedServlet</servlet-name>
+        <jsp-file>/jsp/feed.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FeedServlet</servlet-name>
+        <url-pattern>/feed</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ContactsServlet</servlet-name>
+        <jsp-file>/jsp/contacts.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ContactsServlet</servlet-name>
+        <url-pattern>/contacts</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PrivacyServlet</servlet-name>
+        <jsp-file>/jsp/privacy.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PrivacyServlet</servlet-name>
+        <url-pattern>/privacy</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <jsp-file>/jsp/login.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <jsp-file>/jsp/register.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MeServlet</servlet-name>
+        <jsp-file>/jsp/me.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MeServlet</servlet-name>
+        <url-pattern>/me</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ProfileServlet</servlet-name>
+        <jsp-file>/jsp/profile.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProfileServlet</servlet-name>
+        <url-pattern>/u/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SearchServlet</servlet-name>
+        <jsp-file>/jsp/search.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchServlet</servlet-name>
+        <url-pattern>/search/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SkillServlet</servlet-name>
+        <jsp-file>/jsp/skill.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SkillServlet</servlet-name>
+        <url-pattern>/skill/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>TopicServlet</servlet-name>
+        <jsp-file>/jsp/topic.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TopicServlet</servlet-name>
+        <url-pattern>/topic/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>IdeaServlet</servlet-name>
+        <jsp-file>/jsp/idea.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>IdeaServlet</servlet-name>
+        <url-pattern>/idea/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>TeamsServlet</servlet-name>
+        <jsp-file>/jsp/teams.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TeamsServlet</servlet-name>
+        <url-pattern>/teams/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RequestsServlet</servlet-name>
+        <jsp-file>/jsp/requests.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RequestsServlet</servlet-name>
+        <url-pattern>/requests</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>TeamServlet</servlet-name>
+        <jsp-file>/jsp/team.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TeamServlet</servlet-name>
+        <url-pattern>/team/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ManageServlet</servlet-name>
+        <jsp-file>/jsp/manage.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ManageServlet</servlet-name>
+        <url-pattern>/manage</url-pattern>
+    </servlet-mapping>
+
+</web-app>

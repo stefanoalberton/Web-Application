@@ -1,0 +1,8 @@
+"Score: 10/10
+
+–Ok the commits on the bitbucket repository.
+–Strange that you have an entity Token that represents a the UUID of a user, while Tomcat already does that. Also, it is strange that you save such kind of data in a relational database, since it should be information that ""expires"" after the end of the section, and should disappear. 
+–Good use of filters.
+–DAO usually correspond to only one ""operation"", such as insert, list, delete. You should not, in general, have a DAO doing many operations. 
+–Good use of filters and implementation of REST classes. 
+–The report may have been improved by more useful examples at the end. Some curl examples may have been useful for the correction. Also, in the report there are many ""negative"" results, e.g. BAD input, NO changes, CANNOT access database etc. Some successful insertion/update/login examples may have been more useful, also in showing what the application is able to do. "
